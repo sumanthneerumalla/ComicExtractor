@@ -31,7 +31,7 @@ function imageFinder($webPage)
     foreach ($webPage as $line) {
         $line = htmlentities($line, ENT_QUOTES);
         $status = strtok($line, "http://www.commitstrip.com/wp-content/uploads");
-        if (status !== False){
+        if ($status !== False){
             $imageUrl = strtok($line, ".jpg");
             echo $imageUrl;
         }
