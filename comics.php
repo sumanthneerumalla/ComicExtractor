@@ -27,12 +27,19 @@ function imagePrinter($urlArray)
 function imageFinder($webPage)
 {
     $webPage = explode ("\r\n",$webPage );
+    echo count( $webPage);
+    echo "\r\n";
 
     foreach ($webPage as $line) {
         $line = htmlentities($line, ENT_QUOTES);
         $status = strtok($line, "http://www.commitstrip.com/wp-content/uploads");
         if ($status !== False){
             $imageUrl = strtok($line, ".jpg");
+            echo $imageUrl;
+        }
+        $status = strtok($line, "Permalink to");
+        if ($status !== False){
+            $imageUrl = strtok($line, "rel");
             echo $imageUrl;
         }
 
@@ -43,7 +50,7 @@ function imageFinder($webPage)
     #$imageUrl = strtok($webPage, ".jpg");
     #$imageUrl = "http://www.commitstrip.com/wp-content/uploads".$imageUrl.".jpg";
 
-    return array( $webPage, $imageUrl);
+    return  $imageUrl ;
     }
 
 
