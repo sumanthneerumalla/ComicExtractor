@@ -26,12 +26,12 @@ function imagePrinter($urlArray)
 
 function imageFinder($webPage)
 {
-
+    $webPage = htmlentities($webPage,ENT_QUOTES);
     #$Title = strtok($webPage, "Permalink to ");
     #$Title = strtok($webPage, "\"");
     $imageUrl = strtok($webPage, "http://www.commitstrip.com/wp-content/uploads");
     $imageUrl = strtok($webPage, ".jpg");
-    $imageUrl = "http://www.commitstrip.com/wp-content/uploads".$imageUrl.".jpg";
+    #$imageUrl = "http://www.commitstrip.com/wp-content/uploads".$imageUrl.".jpg";
 
     return array( $webPage, $imageUrl);
     }
