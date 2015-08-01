@@ -26,11 +26,21 @@ function imagePrinter($urlArray)
 
 function imageFinder($webPage)
 {
-    $webPage = htmlentities($webPage,ENT_QUOTES);
+    $webPage = explode ("\r\n",$webPage );
+
+    foreach ($webPage as $line) {
+        $line = htmlentities($line, ENT_QUOTES);
+        $status = strtok($line, "http://www.commitstrip.com/wp-content/uploads");
+        if (status !== False){
+            $imageUrl = strtok($line, ".jpg");
+            echo $imageUrl;
+        }
+
+    }
     #$Title = strtok($webPage, "Permalink to ");
     #$Title = strtok($webPage, "\"");
-    $imageUrl = strtok($webPage, "http://www.commitstrip.com/wp-content/uploads");
-    $imageUrl = strtok($webPage, ".jpg");
+    #$imageUrl = strtok($webPage, "http://www.commitstrip.com/wp-content/uploads");
+    #$imageUrl = strtok($webPage, ".jpg");
     #$imageUrl = "http://www.commitstrip.com/wp-content/uploads".$imageUrl.".jpg";
 
     return array( $webPage, $imageUrl);
