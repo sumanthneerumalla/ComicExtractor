@@ -3,7 +3,7 @@
 
 $starterUrl = "http://www.commitstrip.com/en/page/";
 $startValue = 1;
-$endValue = 2;
+$endValue = 10;
 
 function urlCreator($starterUrl,$startValue,$endValue)
 {
@@ -18,44 +18,36 @@ function imagePrinter($urlArray)
     foreach($urlArray as $nextUrl)
     {
         $webPage = file_get_contents($nextUrl);
-        list( $imageUrl) =  imageFinder($webPage);
-        #echo "<p>".$imageTitle."</p>";
-        echo "<img style=\"-webkit-user-select: none\" src=\"".$imageUrl."\">";
+        list($titlePortion, $imagePortion, $count) =  imageFinder($webPage);
+        echo $titlePortion. "<br>";
+        echo $imagePortion ."<br>" ;
+
     }
 }
 
 function imageFinder($webPage)
 {
-    $webPage = explode ("\r\n",$webPage );
-    echo count( $webPage);
-    echo "\r\n";
+    $webPage = explode ("\n",$webPage );
+    $count =0;
+    foreach ($webPage as $line)
+    {
+        $count = $count + 1;
 
-    foreach ($webPage as $line) {
-        $line = htmlentities($line, ENT_QUOTES);
-        $status = strtok($line, "http://www.commitstrip.com/wp-content/uploads");
-        if ($status !== False){
-            $imageUrl = strtok($line, ".jpg");
-            echo $imageUrl;
+        if ($count == 226) {
+            $imagePortion = htmlentities($line,ENT_QUOTES);
         }
-        $status = strtok($line, "Permalink to");
-        if ($status !== False){
-            $imageUrl = strtok($line, "rel");
-            echo $imageUrl;
+        if ($count == 213) {
+            $titlePortion = htmlentities($line,ENT_QUOTES);
         }
 
     }
-    #$Title = strtok($webPage, "Permalink to ");
-    #$Title = strtok($webPage, "\"");
-    #$imageUrl = strtok($webPage, "http://www.commitstrip.com/wp-content/uploads");
-    #$imageUrl = strtok($webPage, ".jpg");
-    #$imageUrl = "http://www.commitstrip.com/wp-content/uploads".$imageUrl.".jpg";
+    return array ($titlePortion,$imagePortion,$count);
 
-    return  $imageUrl ;
     }
 
 
-#echo "<html><body>";
+echo "<html><body>";
 $urlArray = urlCreator($starterUrl,$startValue,$endValue);
 imagePrinter($urlArray);
-#echo " </body></html>";
+echo " </body></html>";
 ?>
