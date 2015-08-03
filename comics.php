@@ -15,12 +15,19 @@ function urlCreator($starterUrl,$startValue,$endValue)
 
 function imagePrinter($urlArray)
 {
+    $urlNumber = $GLOBALS["startValue"] - 1;
     foreach($urlArray as $nextUrl)
     {
+        $urlNumber = $urlNumber +1;
         $webPage = file_get_contents($nextUrl);
         list($titlePortion, $imagePortion, $count) =  imageFinder($webPage);
-        echo $titlePortion. "<br>";
+        $titlePortion = html_entity_decode($titlePortion);
+        $imagePortion = html_entity_decode($imagePortion);
+        echo $titlePortion ;
+        echo "The source page for this had ".$count." lines.<br>";
+        echo "The Url number for this is ".$urlNumber."<br>";
         echo $imagePortion ."<br>" ;
+
 
     }
 }
