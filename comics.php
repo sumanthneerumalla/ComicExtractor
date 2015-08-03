@@ -2,8 +2,8 @@
 
 
 $starterUrl = "http://www.commitstrip.com/en/page/";
-$startValue = 1;
-$endValue = 10;
+$startValue = 100;
+$endValue = 200;
 
 function urlCreator($starterUrl,$startValue,$endValue)
 {
@@ -21,8 +21,8 @@ function imagePrinter($urlArray)
         $urlNumber = $urlNumber +1;
         $webPage = file_get_contents($nextUrl);
         list($titlePortion, $imagePortion, $count) =  imageFinder($webPage);
-        $titlePortion = html_entity_decode($titlePortion);
-        $imagePortion = html_entity_decode($imagePortion);
+        $titlePortion = htmlspecialchars_decode($titlePortion, ENT_QUOTES);
+        $imagePortion = htmlspecialchars_decode($imagePortion, ENT_QUOTES);
         echo $titlePortion ;
         echo "The source page for this had ".$count." lines.<br>";
         echo "The Url number for this is ".$urlNumber."<br>";
@@ -41,10 +41,10 @@ function imageFinder($webPage)
         $count = $count + 1;
 
         if ($count == 226) {
-            $imagePortion = htmlentities($line,ENT_QUOTES);
+            $imagePortion = htmlspecialchars($line,ENT_QUOTES);
         }
         if ($count == 213) {
-            $titlePortion = htmlentities($line,ENT_QUOTES);
+            $titlePortion = htmlspecialchars($line,ENT_QUOTES);
         }
 
     }
