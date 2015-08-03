@@ -1,6 +1,5 @@
 <?php
 
-
 $starterUrl = "http://www.commitstrip.com/en/page/";
 $startValue = 100;
 $endValue = 200;
@@ -27,7 +26,6 @@ function imagePrinter($urlArray)
         echo "The source page for this had ".$count." lines.<br>";
         echo "The Url number for this is ".$urlNumber."<br>";
         echo $imagePortion ."<br>" ;
-
 
     }
 }
