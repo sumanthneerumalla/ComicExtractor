@@ -1,5 +1,6 @@
 <?php
 
+
 $starterUrl = "http://www.commitstrip.com/en/page/";
 $startValue = 100;
 $endValue = 200;
@@ -27,6 +28,7 @@ function imagePrinter($urlArray)
         echo "The Url number for this is ".$urlNumber."<br>";
         echo $imagePortion ."<br>" ;
 
+
     }
 }
 
@@ -52,6 +54,7 @@ function imageFinder($webPage)
 
 
 echo "<html><body>";
+echo "<META HTTP-EQUIV=\"Content-Type\" CONTENT=\"text/html; charset=UTF-8\">";
 $urlArray = urlCreator($starterUrl,$startValue,$endValue);
 imagePrinter($urlArray);
 echo " </body></html>";
