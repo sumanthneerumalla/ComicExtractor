@@ -52,10 +52,29 @@ function imageFinder($webPage)
 
     }
 
+function urlFeeder($starterUrl,$startValue,$endValue)
+{
+    for ($comicNumber = $startValue ;$comicNumber <= $endValue; ++$comicNumber)
+        individualImagePrinter($starterUrl.$comicNumber);
+
+}
+
+function individualImagePrinter($nextUrl)
+{
+        $webPage = file_get_contents($nextUrl);
+        list($titlePortion, $imagePortion, $count) =  imageFinder($webPage);
+        $titlePortion = htmlspecialchars_decode($titlePortion, ENT_QUOTES);
+        $imagePortion = htmlspecialchars_decode($imagePortion, ENT_QUOTES);
+        echo $titlePortion ;
+        echo "The source page for this had ".$count." lines.<br>";
+        echo $imagePortion ."<br>" ;
+
+}
 
 echo "<html><body>";
 echo "<META HTTP-EQUIV=\"Content-Type\" CONTENT=\"text/html; charset=UTF-8\">";
-$urlArray = urlCreator($starterUrl,$startValue,$endValue);
+#$urlArray = urlCreator($starterUrl,$startValue,$endValue);
+urlFeeder($starterUrl,$startValue,$endValue);
 imagePrinter($urlArray);
 echo " </body></html>";
 ?>
